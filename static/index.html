@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Знайти людину з малого кола</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/script_members.js"></script>
+  </head>
+  <body>
+		
+		<div class="container" ng-app="myApp" ng-controller="customersCtrl">
+			<div class="jumbotron">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="volunteers.html">Обрати людину з волонтерів</a></li>
+				</ul>
+				<h2>Знайти людину з малого кола</h2>
+				<p>Оберіть необхідні параметрами</p>
+
+			  </div>
+			<div>
+			
+					<div class="leftblock">
+					<h4>Відібрати за параметрами</h4>
+					<p>
+						<div class="dropdown clearfix"> 
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-model="name">Всі вміння<span class="caret"></span></button> 
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> 
+								<li><a href="#">координування проектів</a></li> 
+								<li><a href="#">фандрейзінг</a></li> 
+								<li><a href="#">адміністрування</a></li>
+								<li><a href="#">програмування</a></li> 
+								<li><a href="#">дизайн</a></li> 
+								<li><a href="#">піар</a></li> 
+							</ul> 
+						</div>
+					</p>
+					<!--
+					<p>
+						<div class="dropdown clearfix"> 
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-model="name1">Відповідальність<span class="caret"></span></button> 
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2"> 
+								<li><a href="#">повне ведення проекту, очолити напрямок , долучаючи необхідні руки</a></li> 
+								<li><a href="#">створення стратегії з декількома активістами і впровадження проекту</a></li> 
+								<li><a href="#">допомагати, виконуючи конкретні завдання</a></li>
+							</ul> 
+						</div>
+					</p>
+					-->
+					
+					<p>
+						<div class="dropdown clearfix"> 
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Час з нами<span class="caret"></span></button> 
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu3"> 
+								<li><a href="#">full-time (5 разів на тиждень, повний робочий день)</a></li> 
+								<li><a href="#">пару разів на тиждень по декілька годин</a></li> 
+								<li><a href="#">раз на тиждень</a></li>
+								<li><a href="#">декілька разів на місяць</a></li>
+							</ul> 
+						</div>
+					</p>
+					<p><button type="button" class="btn btn-default" ng-click="filterPeople()">Відібрати</button></p>
+				</div>		
+				<div class="leftblock datablock">
+					<table class="table table-striped">
+						<thead>
+						  <tr>
+							<th>#</th>
+							<th>Імя</th>
+							<th>Телефон</th>
+							<th>FB</th>
+							<th>Відповідальність</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="x in myData">
+							<td>{{ x.id}}</td>
+							<td>{{ x.name}}</td>
+							<td>{{ x.phone}}</td>
+							<td>{{ x.facebook}}</td>
+							<td>{{ x.responsability}}</td>
+						  </tr>
+						</tbody>
+					  </table>
+				  </div>
+			  
+			</div>
+		</div>
+	<script>
+		$(".dropdown-menu li a").click(function(){
+		  var selText = $(this).text();
+		  var baseText = $(this).parents('.dropdown').find('.dropdown-toggle').text();
+		  $(this).parents('.dropdown').find('.dropdown-toggle').html(selText+'<span class="caret"></span>');
+		  $(this).text(baseText);
+		});
+	</script>
+  </body>
+</html>

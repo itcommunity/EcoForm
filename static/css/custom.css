@@ -1,0 +1,30 @@
+.leftblock{
+	float:left;
+	padding-right:15px;
+	border:0px solid red;
+}
+
+.datablock{
+	width:65%;
+}
+.rigtblock{
+	float:right;
+	border:0px solid red;
+}
+
+.container {
+    width: 1170px;
+	border:0px solid red;
+}
+.wantToDisplay{
+display:block;
+list-style:none;
+clear:both;
+visible:none;
+}
+.wantToDisplay li{
+	float:left;
+	border:0px solid red;
+	padding-right:10px;
+	padding-top:5px;
+}
