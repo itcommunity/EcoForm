@@ -14,9 +14,7 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 
 @Configuration
@@ -30,6 +28,13 @@ public class AppConfig extends WebMvcConfigurerAdapter  {
 			.allowedOrigins("*")
 			.allowedMethods("PUT", "DELETE","GET","POST").allowedHeaders("*");
 	}
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        ResourceHandlerRegistration registration = registry.addResourceHandler("/**");
+        registration.addResourceLocations("/WEB-INF/static/");
+        registration.setCachePeriod(0);
+    }
 
     @Bean
     public JdbcTemplate initJDBCTemplate(){

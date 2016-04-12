@@ -1,6 +1,6 @@
 angular.module('myApp', [])
 	.controller('customersCtrl', ['$scope','$http', function($scope,$http) {
-		$http.get("/EcoForm/group/getAll").
+		$http.get("/group/getAll").
 			then(function(response) {
 				$scope.myData = response.data;
 			}
@@ -14,7 +14,7 @@ angular.module('myApp', [])
 					"members": $('#dropdownMenu4').text()
 
 			};	
-			var res = $http.post('/EcoForm/group/getAllByParams', dataObj);
+			var res = $http.post('/group/getAllByParams', dataObj);
 
 			res.success(function(data, status, headers, config) {
 				$scope.myData = data;

@@ -1,6 +1,6 @@
 angular.module('myApp', [])
 	.controller('customersCtrl', ['$scope','$http', function($scope,$http) {
-		$http.get("/EcoForm/member/getAll").
+		$http.get("/member/getAll").
 			then(function(response) {
 				$scope.myData = response.data;
 			}
@@ -12,7 +12,7 @@ angular.module('myApp', [])
 					"responsibility": $('#dropdownMenu2').text(),
 					"timeWithUs": $('#dropdownMenu3').text()
 			};	
-			var res = $http.post('/EcoForm/member/getAllByParams', dataObj);
+			var res = $http.post('/member/getAllByParams', dataObj);
 
 			res.success(function(data, status, headers, config) {
 				$scope.myData = data;
