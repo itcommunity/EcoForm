@@ -1,0 +1,53 @@
+package org.eco.configs;
+
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+
+@Configuration
+@EnableWebMvc
+@ComponentScan("org.eco")
+public class AppConfig extends WebMvcConfigurerAdapter  {
+	
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**/**")
+			.allowedOrigins("*")
+			.allowedMethods("PUT", "DELETE","GET","POST").allowedHeaders("*");
+	}
+
+    @Bean
+    public JdbcTemplate initJDBCTemplate(){
+        SimpleDriverDataSource simpleDriverDataSource = new SimpleDriverDataSource();
+        simpleDriverDataSource.setDriverClass(org.postgresql.Driver.class);
+        simpleDriverDataSource.setUrl("jdbc:postgresql://10.0.1.5:5432/ecoevolution");
+        simpleDriverDataSource.setUsername("yar");
+        simpleDriverDataSource.setPassword("123456");
+
+        return new JdbcTemplate(simpleDriverDataSource);
+
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(2000000);
+        return multipartResolver;
+    }
+
+}
