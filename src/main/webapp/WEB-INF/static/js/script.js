@@ -1,6 +1,6 @@
 angular.module('myApp', ['ngAnimate', 'ui.bootstrap']);
 angular.module('myApp').controller('customersCtrl', function($scope,$http,$uibModal) {
-		$http.get("http://localhost:8080/EcoForm/group/getAll").
+		$http.get("/group/getAll").
 			then(function(response) {
 				$scope.myData = response.data;
 			}
@@ -14,7 +14,7 @@ angular.module('myApp').controller('customersCtrl', function($scope,$http,$uibMo
 					"members": $('#dropdownMenu4').text()
 
 			};	
-			var res = $http.post('http://localhost:8080/EcoForm/group/getAllByParams', dataObj);
+			var res = $http.post('/group/getAllByParams', dataObj);
 
 			res.success(function(data, status, headers, config) {
 				$scope.myData = data;
