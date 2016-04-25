@@ -17,7 +17,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-	    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
@@ -26,12 +28,88 @@
   <body>
 		
 		<div class="container" ng-app="myApp" ng-controller="customersCtrl">
+			<script type="text/ng-template" id="myModalContent.html">
+				<div class="modal-header">
+					<h3 class="modal-title">Детальна інформація {{ items.name}}</h3>
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped">	
+						<thead>
+						  <tr>
+							<th>Питання</th>
+							<th>Відповідь</th>
+						  </tr>
+						</thead>					
+						<tbody>
+						  <tr>
+							<td>Ім'я та Прізвище</td>
+							<td>{{ items.name}}</td>
+						  </tr>
+						  <tr>
+							<td>Місто проживання</td>
+							<td>{{ items.city}}</td>
+						  </tr>
+						  <tr>
+							<td>Контактний телефон</td>
+							<td>{{ items.phone}}</td>
+						  </tr>
+						  <tr>
+							<td>E-mail</td>
+							<td>{{ items.email}}</td>
+						  </tr>
+						  <tr>
+							<td>Профіль у фейсбуці</td>
+							<td>{{ items.facebook}}</td>
+						  </tr>
+						  <tr>
+							<td>Історія участі в УМКА-подіях</td>
+							<td>{{ items.umkaevents}}</td>
+						  </tr>
+						  <tr>
+							<td>Якими вміннями Ти хочеш реалізувати себе?</td>
+							<td>{{ items.skills}}</td>
+						  </tr>
+						  <tr>
+							<td>Маєш намір приєднатись до добрих справ УМКА?</td>
+							<td>{{ items.joinumka}}</td>
+						  </tr>
+						  <tr>
+							<td>Як часто ти готовий/а проводити час з нами?	</td>
+							<td>{{ items.timewithus}}</td>
+						  </tr>
+						  <tr>
+							<td>Чи бажаєш ти стати членом/членкинею УМКА?</td>
+							<td>{{ items.members}}</td>
+						  </tr>
+						  <tr>
+							<td>Є організації, з якими ти в дружніх стоунках? Перерахуй, будь ласка.</td>
+							<td>{{ items.organazation}}</td>
+						  </tr>
+						  <tr>
+							<td>Яких подій не вистачає УМКА?</td>
+							<td>{{ items.additionalevents}}</td>
+						  </tr>
+						  <tr>
+							<td>Які хоббі роблять Тебе живішим?</td>
+							<td>{{ items.hobby}}</td>
+						  </tr>
+						  <tr>
+							<td>Можливо, ми щось забули запитати? Поділись тим, що важливе для Тебе.</td>
+							<td>{{ items.additioninfo}}</td>
+						  </tr>
+						</tbody>
+					  </table>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" ng-click="cancel()">Закрити вікно</button>
+				</div>
+			</script>
 			<div class="jumbotron">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/">Обрати людину з малого кола</a></li>
 				</ul>
 				<h2>Знайти людину з бази активістів</h2>
-				<p>Оберіть необхідні параметрами</p>
+				<p>Оберіть за необхідними парметрами</p>
 			  </div>
 			<div>
 			
@@ -93,6 +171,9 @@
 							<th>Імя</th>
 							<th>Телефон</th>
 							<th>FB</th>
+							<th>email</th>
+							<th>Місто</th>
+							<th>Детальніше</th>
 						  </tr>
 						</thead>
 						<tbody>
@@ -101,6 +182,9 @@
 							<td>{{ x.name}}</td>
 							<td>{{ x.phone}}</td>
 							<td>{{ x.facebook}}</td>
+							<td>{{ x.email}}</td>
+							<td>{{ x.city}}</td>
+							<td><button type="button" class="btn btn-default" ng-click="openDetails(x)">+</button></td>
 						  </tr>
 						</tbody>
 					  </table>

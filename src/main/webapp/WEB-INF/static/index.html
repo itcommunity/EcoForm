@@ -17,7 +17,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-	    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
@@ -26,12 +28,92 @@
   <body>
 		
 		<div class="container" ng-app="myApp" ng-controller="customersCtrl">
+			<script type="text/ng-template" id="myModalContent.html">
+				<div class="modal-header">
+					<h3 class="modal-title">Детальна інформація {{ items.name}}</h3>
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped">	
+						<thead>
+						  <tr>
+							<th>Питання</th>
+							<th>Відповідь</th>
+						  </tr>
+						</thead>	
+						<tbody>
+						  <tr>
+							<td>Ім'я та Прізвище</td>
+							<td>{{ items.name}}</td>
+						  </tr>
+						  <tr>
+							<td>Дата Народження</td>
+							<td>{{ items.birthday}}</td>
+						  </tr>
+						  <tr>
+							<td>Контактний телефон</td>
+							<td>{{ items.phone}}</td>
+						  </tr>
+						  <tr>
+							<td>E-mail</td>
+							<td>{{ items.email}}</td>
+						  </tr>
+						  <tr>
+							<td>Профіль у фейсбуці</td>
+							<td>{{ items.facebook}}</td>
+						  </tr>
+						  <tr>
+							<td>Поштова адреса</td>
+							<td>{{ items.postaddress}}</td>
+						  </tr>
+						  <tr>
+							<td>Наскільки інтенсивно Ти намірений/на долучатись до діяльності УМКА</td>
+							<td>{{ items.timewithus}}</td>
+						  </tr>
+						  <tr>
+							<td>Вміння, якими ти плануєш допомагати УМКА</td>
+							<td>{{ items.skills}}</td>
+						  </tr>
+						  <tr>
+							<td>Яку відповідальність Тобі комфортно взяти на себе?</td>
+							<td>{{ items.responsability}}</td>
+						  </tr>
+						  <tr>
+							<td>Які додаткові руки Тобі необхідні, скільки і у яких сферах?</td>
+							<td>{{ items.hands}}</td>
+						  </tr>
+						  <tr>
+							<td>У яких сферах Ти бажаєш розвиватись?</td>
+							<td>{{ items.area}}</td>
+						  </tr>
+						  <tr>
+							<td>Чи потрібна Тобі підтримка ментора?	</td>
+							<td>{{ items.mentor}}</td>
+						  </tr>
+						  <tr>
+							<td>З якими організаціями Ти маєш дружні стосунки?</td>
+							<td>{{ items.organazation}}</td>
+						  </tr>
+						  <tr>
+							<td>Чи хочеш Ти брати участь у гуртуючих (неменеджерських) подіях для Малого кола? Як часто?</td>
+							<td>{{ items.managersevents}}</td>
+						  </tr>
+						  <tr>
+							<td>Які хоббі роблять Тебе живішим?</td>
+							<td>{{ items.hobby}}</td>
+						  </tr>
+						</tbody>
+					  </table>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" ng-click="cancel()">Закрити вікно</button>
+				</div>
+			</script>
 			<div class="jumbotron">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="volunteers.html">Обрати людину з волонтерів</a></li>
 				</ul>
 				<h2>Знайти людину з малого кола</h2>
-				<p>Оберіть необхідні параметрами</p>
+				<p>Оберіть за необхідними парметрами</p>
 
 			  </div>
 			<div>
@@ -47,7 +129,8 @@
 								<li><a href="#">адміністрування</a></li>
 								<li><a href="#">програмування</a></li> 
 								<li><a href="#">дизайн</a></li> 
-								<li><a href="#">піар</a></li> 
+								<li><a href="#">піар</a></li>
+								<li><a href="#">інше</a></li> 
 							</ul> 
 						</div>
 					</p>
@@ -72,6 +155,7 @@
 								<li><a href="#">пару разів на тиждень по декілька годин</a></li> 
 								<li><a href="#">раз на тиждень</a></li>
 								<li><a href="#">декілька разів на місяць</a></li>
+								<li><a href="#">інше</a></li> 
 							</ul> 
 						</div>
 					</p>
@@ -85,7 +169,8 @@
 							<th>Імя</th>
 							<th>Телефон</th>
 							<th>FB</th>
-							<th>Відповідальність</th>
+							<th>email</th>
+							<th>Детальніше</th>
 						  </tr>
 						</thead>
 						<tbody>
@@ -94,7 +179,8 @@
 							<td>{{ x.name}}</td>
 							<td>{{ x.phone}}</td>
 							<td>{{ x.facebook}}</td>
-							<td>{{ x.responsability}}</td>
+							<td>{{ x.email}}</td>
+							<td><button type="button" class="btn btn-default" ng-click="openDetails(x)">+</button></td>
 						  </tr>
 						</tbody>
 					  </table>

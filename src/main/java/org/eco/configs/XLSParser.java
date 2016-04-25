@@ -106,10 +106,12 @@ public class XLSParser {
 		Iterator<Row> it = sheet.iterator();
 		while (it.hasNext()) {
 			Row row = it.next();
-			Iterator<Cell> cells = row.iterator();
+			//iterator return values without null
+			short num = row.getLastCellNum();
+			//HSSFCell cell=row.getCell(c, org.apache.poi.ss.usermodel.Row.CREATE_NULL_AS_BLANK );
 			List<String> rowValues = new ArrayList<String>();
-			while (cells.hasNext()) {
-				Cell cell = cells.next();
+			for(int i=0;i<num;i++){
+				Cell cell=row.getCell(i, org.apache.poi.ss.usermodel.Row.CREATE_NULL_AS_BLANK );
 				int cellType = cell.getCellType();
 				switch (cellType) {
 				case Cell.CELL_TYPE_STRING:
@@ -120,10 +122,6 @@ public class XLSParser {
 
 						rowValues.add(cell.getDateCellValue().toString());
 					} else {
-						// TODO:check value what exactly insert in DB
-
-						// double numValueD = new
-						// Double(cell.getNumericCellValue()).doubleValue();
 						BigDecimal cellValue = new BigDecimal(cell.getNumericCellValue());
 						rowValues.add(cellValue.toBigInteger().toString());
 
@@ -134,7 +132,7 @@ public class XLSParser {
 					System.out.print("-!-" + cell.getNumericCellValue() + "-!-");
 					break;
 				default:
-					rowValues.add("");
+					rowValues.add(" ");
 					break;
 				}
 			}
@@ -181,17 +179,18 @@ public class XLSParser {
 		member.setEmail(normalize(params.get(3)));
 		member.setFacebook(normalize(params.get(4)));
 		member.setPostaddress(normalize(params.get(5)));
-		member.setTimeWithUs(normalize(params.get(6)));
-		member.setSkills(params.get(7));
-		member.setResponsability(normalize(params.get(8)));
-		member.setHands(normalize(params.get(9)));
-		member.setArea(normalize(params.get(10)));
-		member.setMentor(normalize(params.get(11)));
-		member.setOrganazation(normalize(params.get(12)));
-		member.setManagersEvents(normalize(params.get(13)));
-		member.setHobby(normalize(params.get(14)));
+		//forgot about hystory
+		member.setTimeWithUs(normalize(params.get(7)));
+		member.setHands(normalize(params.get(8)));
+		member.setSkills(normalize(params.get(9)));
+		member.setResponsability(normalize(params.get(10)));
+		member.setArea(normalize(params.get(11)));
+		member.setMentor(normalize(params.get(12)));
+		member.setOrganazation(normalize(params.get(13)));
+		member.setManagersEvents(normalize(params.get(14)));
+		member.setHobby(normalize(params.get(15)));
 
 		return member;
 	}
-
+	
 }

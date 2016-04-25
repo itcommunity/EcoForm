@@ -1,6 +1,6 @@
-angular.module('myApp', [])
-	.controller('customersCtrl', ['$scope','$http', function($scope,$http) {
-		$http.get("/group/getAll").
+angular.module('myApp', ['ngAnimate', 'ui.bootstrap']);
+angular.module('myApp').controller('customersCtrl', function($scope,$http,$uibModal) {
+		$http.get("http://localhost:8080/EcoForm/group/getAll").
 			then(function(response) {
 				$scope.myData = response.data;
 			}
@@ -14,7 +14,7 @@ angular.module('myApp', [])
 					"members": $('#dropdownMenu4').text()
 
 			};	
-			var res = $http.post('/group/getAllByParams', dataObj);
+			var res = $http.post('http://localhost:8080/EcoForm/group/getAllByParams', dataObj);
 
 			res.success(function(data, status, headers, config) {
 				$scope.myData = data;
@@ -23,9 +23,39 @@ angular.module('myApp', [])
 				alert( "failure message: " + JSON.stringify({data: data}));
 			});	
 		
-		};	
+		};
 		
-		$scope.displayField = function() {
-			alert('sssss');
-		}
-}])
+	
+	  $scope.openDetails = function (items) {
+		$scope.items = items;
+		var modalInstance = $uibModal.open({
+		  animation: $scope.animationsEnabled,
+		  templateUrl: 'myModalContent.html',
+		  controller: 'ModalInstanceCtrl',
+		  size: 'lg',
+		  resolve: {
+			items: function () {
+			  return $scope.items;
+			}
+		  }
+		});
+
+		
+	  };
+
+	  $scope.toggleAnimation = function () {
+		$scope.animationsEnabled = !$scope.animationsEnabled;
+	  };
+		
+})
+
+angular.module('myApp').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+  $scope.items = items;
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+

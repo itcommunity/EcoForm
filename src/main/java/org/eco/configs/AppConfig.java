@@ -40,9 +40,9 @@ public class AppConfig extends WebMvcConfigurerAdapter  {
     public JdbcTemplate initJDBCTemplate(){
         SimpleDriverDataSource simpleDriverDataSource = new SimpleDriverDataSource();
         simpleDriverDataSource.setDriverClass(org.postgresql.Driver.class);
-        simpleDriverDataSource.setUrl("jdbc:postgresql://10.0.1.5:5432/ecoevolution");
-        simpleDriverDataSource.setUsername("yar");
-        simpleDriverDataSource.setPassword("123456");
+        simpleDriverDataSource.setUrl("jdbc:postgresql://localhost:5432/ecoevolution");
+        simpleDriverDataSource.setUsername("postgres");
+        simpleDriverDataSource.setPassword("1234");
 
         return new JdbcTemplate(simpleDriverDataSource);
 
